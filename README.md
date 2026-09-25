@@ -1,9 +1,23 @@
 # Rebase
 
-A JavaScript framework built by developers, for developers.
+Rebase is an experimental compiler-first JavaScript framework for building web interfaces.
 
-> Rebase is currently in early development. The API and project direction are not finalized yet.
+> Build the web. On your terms.
+
+## Status
+
+Rebase is in early development. The component syntax, compiler, runtime, and public API are experimental.
 
 ## Documentation
 
-Documentation: https://rebase.js.org
+https://rebase.js.org
+
+## Packages
+
+- `packages/compiler` — .rebase compiler prototype
+- `packages/runtime` — browser runtime
+- `packages/rebase` — public package entry
+
+## License
+
+MIT
