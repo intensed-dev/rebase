@@ -1,0 +1,1 @@
+export { mount, component } from "../runtime/src/index.js";
