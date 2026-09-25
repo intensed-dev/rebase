@@ -1,0 +1,12 @@
+{
+  "name": "rebase",
+  "version": "0.2.0",
+  "description": "A compiler-first JavaScript framework for building web interfaces.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "node packages/compiler/src/cli.js",
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
