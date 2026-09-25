@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Rebase — a compiler-first JavaScript framework."><title>Rebase</title><link rel="stylesheet" href="style.css"></head><body><header><a class="brand" href="/">Rebase</a><nav><a href="#guide">Guide</a><a href="#syntax">Syntax</a><a href="#status">Status</a><a href="api.md">API</a><a href="https://github.com/intensed-dev/rebase">GitHub</a></nav></header><main><section class="hero"><p class="eyebrow">JAVASCRIPT FRAMEWORK</p><h1>Build the web.<br>On your terms.</h1><p>Rebase is a compiler-first framework for building web interfaces with JavaScript, HTML and CSS.</p><a class="button" href="#guide">Get started</a></section><section id="guide"><h2>What is Rebase?</h2><p>Rebase explores a Vue/Svelte-style single-file component model with a compiler-first architecture. The project is experimental and the API is intentionally small while the architecture is being developed.</p></section><section id="syntax"><h2>Single-file components</h2><pre><code>&lt;script&gt;
+const title = "Hello, Rebase.";
+&lt;/script&gt;
+
+&lt;main&gt;
+  &lt;h1&gt;{title}&lt;/h1&gt;
+&lt;/main&gt;
+
+&lt;style&gt;
+h1 { font-family: system-ui; }
+&lt;/style&gt;</code></pre><p>Compile a component, then mount the generated component in the browser.</p></section><section id="status"><h2>Current API</h2><ul><li><code>compile()</code></li><li><code>compileFile()</code></li><li><code>mount()</code></li><li><code>component()</code></li><li><code>.rebase</code> single-file components</li></ul><p><a href="api.md">See every current feature with examples →</a></p></section></main><footer>Rebase · Open source · Early development</footer></body></html>
