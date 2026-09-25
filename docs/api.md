@@ -1,97 +1,157 @@
 # Rebase API
 
-This file documents every public feature currently implemented in the prototype.
+Rebase is an experimental compiler-first JavaScript framework. This page lists the current public API in the prototype.
 
-## `compile(source)`
-
-Compiles a string containing a Rebase single-file component.
-
-```js
-import { compile } from "./packages/compiler/src/compiler.js";
-
-const result = compile(`
-<script>
-const title = "Hello";
-</script>
-
-<h1>{title}</h1>
-
-<style>
-h1 { font-family: system-ui; }
-</style>
-`);
-
-console.log(result.script);
-console.log(result.template);
-console.log(result.style);
-console.log(result.code);
-```
-
-Returns an object containing `script`, `template`, `style`, and generated `code`.
-
-## `compileFile(input, output)`
-
-Compiles a `.rebase` file into a JavaScript module.
-
-```js
-import { compileFile } from "./packages/compiler/src/compiler.js";
-
-compileFile("App.rebase", "dist/App.js");
-```
-
-## `mount(component, target)`
-
-Mounts a compiled component into a DOM element.
-
-```js
-import { mount } from "rebase";
-import App from "./App.js";
-
-mount(App, "#app");
-```
-
-The target may be a CSS selector or an existing DOM element.
-
-## `component(definition)`
+## \`component(definition)\`
 
 Creates an immutable component definition.
 
-```js
+\`\`\`js
 import { component } from "rebase";
 
 const Button = component({
   template: "<button>Click</button>",
   style: "button { padding: 8px; }"
 });
-```
+\`\`\`
 
-## `.rebase` single-file components
+## \`mount(component, target)\`
 
-A component can contain three blocks:
+Mounts a component into a CSS selector or DOM element.
 
-```html
+\`\`\`js
+import { mount } from "rebase";
+
+const app = mount(App, "#app");
+app.update();
+app.unmount();
+\`\`\`
+
+## \`createApp(component)\`
+
+Creates a small app controller.
+
+\`\`\`js
+const app = createApp(App);
+const instance = app.mount("#app");
+app.unmount();
+\`\`\`
+
+## \`state(initialValue)\`
+
+Creates reactive state.
+
+\`\`\`js
+const count = state(0);
+
+count.value++;
+count.subscribe((value, previous) => {
+  console.log(value, previous);
+});
+\`\`\`
+
+## \`computed(getter, dependencies)\`
+
+Creates derived reactive state.
+
+\`\`\`js
+const total = computed(
+  () => price.value * quantity.value,
+  [price, quantity]
+);
+
+console.log(total.value);
+\`\`\`
+
+## \`effect(fn, dependencies)\`
+
+Runs a function immediately and again when dependencies change.
+
+\`\`\`js
+const stop = effect(
+  () => console.log(count.value),
+  [count]
+);
+
+stop();
+\`\`\`
+
+## \`watch(source, callback)\`
+
+Observes reactive state or a getter.
+
+\`\`\`js
+const stop = watch(count, (value, previous) => {
+  console.log("changed", previous, "→", value);
+});
+
+stop();
+\`\`\`
+
+## \`html(strings, ...values)\`
+
+Builds an HTML string from template literals.
+
+\`\`\`js
+const name = "Rebase";
+const markup = html\`<h1>Hello \${name}</h1>\`;
+\`\`\`
+
+## \`.rebase\` single-file components
+
+Components combine JavaScript, markup and CSS:
+
+\`\`\`html
 <script>
-const title = "Hello";
+const title = "Hello, Rebase.";
+
+function handleClick() {
+  console.log("clicked");
+}
 </script>
 
 <main>
   <h1>{title}</h1>
+  <button on:click="handleClick">Click</button>
 </main>
 
 <style>
-h1 {
-  font-family: system-ui;
-}
+main { font-family: system-ui; }
 </style>
-```
+\`\`\`
 
-The prototype extracts these blocks during compilation.
+The compiler extracts \`<script>\`, template markup and \`<style>\`, and exposes declared variables/functions to the component setup scope.
+
+## Compiler
+
+### \`compile(source)\`
+
+Compiles a \`.rebase\` source string.
+
+\`\`\`js
+import { compile } from "./packages/compiler/src/compiler.js";
+
+const result = compile(source);
+console.log(result.script);
+console.log(result.template);
+console.log(result.style);
+console.log(result.code);
+\`\`\`
+
+### \`compileFile(input, output)\`
+
+Compiles a \`.rebase\` file to JavaScript.
+
+\`\`\`js
+compileFile("App.rebase", "dist/App.js");
+\`\`\`
+
+### CLI
+
+\`\`\`bash
+node packages/compiler/src/cli.js App.rebase dist/App.js
+\`\`\`
 
 ## Current limitations
 
-- Expressions such as `{title}` are not reactive yet.
-- Event handlers are not compiled yet.
-- Props are not implemented yet.
-- Lifecycle hooks are not implemented yet.
-- Routing is not part of the current core.
-- SSR is not implemented.
+The prototype is not yet a full Vue/Svelte replacement. Current work is focused on a stable compiler/runtime foundation. In particular, there is no production optimizer, SSR, router, slots system, advanced template expressions, keyed list diffing, or scoped CSS yet.
