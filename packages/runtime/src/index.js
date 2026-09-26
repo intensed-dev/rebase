@@ -123,7 +123,8 @@ export function html(strings, ...values) {
 }
 
 export function createRouter(routes = {}, options = {}) {
-  let currentPath = normalizePath(options.initial ?? location.pathname);
+  const browser = typeof window !== "undefined";
+  let currentPath = normalizePath(options.initial ?? (browser ? window.location.pathname : "/"));
   const subscribers = new Set();
   const router = {
     get path() { return currentPath; },
@@ -137,18 +138,18 @@ export function createRouter(routes = {}, options = {}) {
     navigate(path) {
       const next = normalizePath(path);
       if (next === currentPath) return;
-      history.pushState({}, "", next);
+      if (browser) history.pushState({}, "", next);
       currentPath = next;
       subscribers.forEach(fn => fn(router));
     },
     subscribe(fn) { subscribers.add(fn); return () => subscribers.delete(fn); },
-    destroy() { removeEventListener("popstate", pop); subscribers.clear(); }
+    destroy() { if (browser) removeEventListener("popstate", pop); subscribers.clear(); }
   };
   function pop() {
-    currentPath = normalizePath(location.pathname);
+    currentPath = normalizePath(browser ? window.location.pathname : currentPath);
     subscribers.forEach(fn => fn(router));
   }
-  addEventListener("popstate", pop);
+  if (browser) addEventListener("popstate", pop);
   return router;
 }
 
