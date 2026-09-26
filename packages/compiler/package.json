@@ -1,0 +1,9 @@
+{
+  "name": "@rebasejs/compiler",
+  "version": "0.3.0",
+  "type": "module",
+  "bin": {
+    "rebase": "./src/cli.js"
+  },
+  "exports": "./src/compiler.js"
+}
