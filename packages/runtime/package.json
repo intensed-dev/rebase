@@ -1,0 +1,6 @@
+{
+  "name": "@rebasejs/runtime",
+  "version": "0.3.0",
+  "type": "module",
+  "exports": "./src/index.js"
+}
