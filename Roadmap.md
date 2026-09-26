@@ -1,13 +1,13 @@
-# Roadmap
+# Rebase roadmap
 
-- [ ] Add `{#each}`
-- [ ] Add `{#if}` and `{:else}` and `{:elif}`
-- [ ] Rebase should update its content automatically, a bit like Svelte
-- [ ] Routing (such as SvelteKit or Vite) is built-in, without any more installations
-- [ ] we can save components via `.rebase` files to reuse them like `<CoolCard title="CardTitle" author="CardAuthor">`
-- [ ] Also, routing and paging should be built-in so we can go to different (clean format) URLs
-- [ ] `rebase.config.js`
-- [ ] `on:` activator, like `on:click`, `on:change`, `on:...`
-- [ ] Variables inside the code, using `{VARIABLENAME}`
-- [ ] the good old structure form Vue, so first theres `<script>...</script>`, then `<template>...</template>` and lastly `<style>...</style>` (you can also switch style and template if you want)
-- [ ] Dynamic Content Loading using `[slug]` or so like in svelte, for blogs
+- [x] Add `{#each}`
+- [x] Add `{#if}`, `{:else}`, `{:elif}`
+- [x] Automatic reactive updates
+- [x] Built-in routing
+- [x] Reusable `.rebase` components
+- [x] Clean URL routing and dynamic `[slug]` parameters
+- [x] `rebase.config.js`
+- [x] `on:` event activators
+- [x] `{VARIABLE}` interpolation
+- [x] Vue-style `script/template/style` sections in any order
+- [x] Dynamic route parameters

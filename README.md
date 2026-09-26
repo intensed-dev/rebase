@@ -21,3 +21,6 @@ https://rebase.js.org
 ## License
 
 MIT
+
+
+Rebase 0.3 includes reactive blocks, reusable components, and built-in routing.
